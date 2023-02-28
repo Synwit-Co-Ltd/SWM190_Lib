@@ -2,7 +2,7 @@
     	Cache    Code Size	  Data Size
     0	On         120k          20k
     2	Off         32k           4k		*/
-    .equ MEM_CONFIG, 2
+    .equ MEM_CONFIG, 0
 
 
     .syntax unified
