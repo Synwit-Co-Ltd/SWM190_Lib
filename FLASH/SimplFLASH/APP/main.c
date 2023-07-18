@@ -1,6 +1,12 @@
 #include "SWM190.h"
 
 
+/* 注意：SWM190_flash.c 中的函数必须在RAM中执行，以防止 Flash 擦写时被 Cache 读取，Keil下实现方法有：
+   方法一、Scatter file
+   方法二、SWM190_flash.c上右键 =》Options for File "SWM190_flash.c" =》Properties =》Memory Assignment =》Code/Conts 选择 IRAM1
+*/
+
+
 #define EEPROM_ADDR	  0x10000
 
 uint32_t WrBuff[20] = {0x14141414, 0x15151515, 0x16161616, 0x17171717, 0x18181818,
