@@ -31,7 +31,7 @@ uint32_t FLASH_Erase(uint32_t addr)
 {
 	uint32_t res;
 	
-	__disable_irq();
+	uint32_t primask = SW_enter_critical();
 	
 	SFC->ADDR = addr;
 	
@@ -49,7 +49,7 @@ uint32_t FLASH_Erase(uint32_t addr)
 	else if(SFC->IF & SFC_IF_TO_Msk) res = FLASH_RES_TO;
 	else                             res = FLASH_RES_OK;
 	
-	__enable_irq();
+	SW_exit_critical(primask);
 	
 	return res;
 }
@@ -67,7 +67,7 @@ uint32_t FLASH_Write(uint32_t addr, uint32_t buff[], uint32_t cnt)
 {	
 	uint32_t res, i;
 	
-	__disable_irq();
+	uint32_t primask = SW_enter_critical();
 	
 	SFC->CFG |= (1 << SFC_CFG_WREN_Pos);
 	for(i = 0; i < cnt; i++)
@@ -80,7 +80,7 @@ uint32_t FLASH_Write(uint32_t addr, uint32_t buff[], uint32_t cnt)
 	else if(SFC->IF & SFC_IF_TO_Msk) res = FLASH_RES_TO;
 	else                             res = FLASH_RES_OK;
 	
-	__enable_irq();
+	SW_exit_critical(primask);
 	
 	return res;
 }
